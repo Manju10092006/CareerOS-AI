@@ -15,6 +15,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
+<!-- Google Identity Services -->
+<script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -426,6 +428,526 @@
                 font-size: 0.9rem;
             }
         }
+
+        body.auth-lock {
+            overflow: hidden;
+        }
+
+        .aurora-auth-shell {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(18px);
+        }
+
+        .aurora-auth-shell.active {
+            display: flex;
+            animation: auth-shell-in 0.36s ease forwards;
+        }
+
+        .aurora-auth-main {
+            position: relative;
+            display: flex;
+            min-height: min(860px, calc(100vh - 24px));
+            width: min(1180px, 100%);
+            overflow: hidden;
+            border-radius: 28px;
+            background: #000;
+            color: #fff;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            selection-background: rgba(255, 255, 255, 0.3);
+        }
+
+        .aurora-auth-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            z-index: 30;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(0, 0, 0, 0.38);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .aurora-auth-close:hover {
+            transform: scale(1.04);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .aurora-hero-panel {
+            position: relative;
+            display: flex;
+            width: 52%;
+            height: auto;
+            min-height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            overflow: hidden;
+            border-radius: 24px;
+            padding: 48px 48px 120px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+        }
+
+        .aurora-hero-panel video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .aurora-hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            text-align: center;
+            text-shadow: 0 8px 30px rgba(0, 0, 0, 0.56);
+        }
+
+        .aurora-reveal {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .aurora-auth-shell.active .aurora-reveal {
+            animation: aurora-child-rise 0.5s ease forwards;
+        }
+
+        .aurora-auth-shell.active .aurora-reveal:nth-child(1) { animation-delay: 0.2s; }
+        .aurora-auth-shell.active .aurora-reveal:nth-child(2) { animation-delay: 0.35s; }
+        .aurora-auth-shell.active .aurora-reveal:nth-child(3) { animation-delay: 0.5s; }
+        .aurora-auth-shell.active .aurora-reveal:nth-child(4) { animation-delay: 0.65s; }
+
+        .aurora-brand {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .aurora-brand i {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        .aurora-copy h2 {
+            white-space: nowrap;
+            font-size: 40px;
+            line-height: 1;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+        }
+
+        .aurora-copy p {
+            color: rgba(255, 255, 255, 0.64);
+            font-size: 14px;
+            line-height: 1.7;
+            padding: 0 16px;
+        }
+
+        .aurora-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .aurora-step {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-height: 56px;
+            border-radius: 16px;
+            padding: 10px 12px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .aurora-step.active {
+            background: #fff;
+            color: #000;
+            border: 1px solid #fff;
+            text-shadow: none;
+        }
+
+        .aurora-step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .aurora-step.active .aurora-step-number {
+            background: #000;
+            color: #fff;
+        }
+
+        .aurora-step span:last-child {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .aurora-form-panel {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 48px 64px;
+        }
+
+        .aurora-form-inner {
+            width: 100%;
+            max-width: 576px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            opacity: 0;
+            animation: aurora-fade-in 0.8s ease forwards;
+        }
+
+        .aurora-panel-header h2 {
+            font-size: 32px;
+            line-height: 1.1;
+            font-weight: 500;
+            letter-spacing: -0.035em;
+            margin-bottom: 10px;
+        }
+
+        .aurora-panel-header p {
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 14px;
+        }
+
+        .aurora-social-grid,
+        .aurora-two-grid,
+        .aurora-choice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .aurora-social-btn {
+            height: 52px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .aurora-social-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .aurora-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .aurora-divider::before,
+        .aurora-divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .aurora-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .aurora-input-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .aurora-input,
+        .aurora-select {
+            width: 100%;
+            height: 48px;
+            border: 0;
+            outline: none;
+            border-radius: 14px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 0 16px;
+            font: inherit;
+            transition: box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .aurora-input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .aurora-input:focus,
+        .aurora-select:focus {
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+            background: #202020;
+        }
+
+        .aurora-password-wrap {
+            position: relative;
+        }
+
+        .aurora-password-wrap .aurora-input {
+            padding-right: 48px;
+        }
+
+        .aurora-eye-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.6);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .aurora-helper {
+            color: rgba(255, 255, 255, 0.36);
+            font-size: 12px;
+        }
+
+        .aurora-primary-btn {
+            width: 100%;
+            height: 56px;
+            border-radius: 14px;
+            background: #fff;
+            color: #000;
+            font-weight: 700;
+            transition: transform 0.18s ease, background 0.18s ease;
+        }
+
+        .aurora-primary-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .aurora-primary-btn:active {
+            transform: scale(0.98);
+        }
+
+        .aurora-footer-note {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.44);
+            font-size: 14px;
+        }
+
+        .aurora-footer-note button {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .aurora-auth-stage {
+            display: none;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .aurora-auth-stage.active {
+            display: flex;
+            animation: aurora-fade-in 0.38s ease forwards;
+        }
+
+        .aurora-choice {
+            min-height: 104px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #111;
+            color: #fff;
+            padding: 18px;
+            text-align: left;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+        }
+
+        .aurora-choice:hover,
+        .aurora-choice.selected {
+            border-color: rgba(255, 255, 255, 0.7);
+            background: #1f1f1f;
+            transform: translateY(-2px);
+        }
+
+        .aurora-choice strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .aurora-choice span {
+            display: block;
+            color: rgba(255, 255, 255, 0.46);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .aurora-profile-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            background: #101010;
+            padding: 14px;
+        }
+
+        .aurora-profile-card img,
+        .aurora-avatar-fallback {
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            object-fit: cover;
+            background: #fff;
+            color: #000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .aurora-status {
+            min-height: 20px;
+            color: rgba(255, 255, 255, 0.56);
+            font-size: 13px;
+        }
+
+        .aurora-status.error {
+            color: #ffb4ab;
+        }
+
+        .aurora-status.success {
+            color: #b8f7cf;
+        }
+
+        .aurora-success-orbit {
+            min-height: 260px;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background:
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.18), transparent 28%),
+                linear-gradient(135deg, #111, #050505);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 28px;
+        }
+
+        .aurora-success-orbit h3 {
+            font-size: 34px;
+            line-height: 1.05;
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+        }
+
+        .aurora-success-orbit p {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes auth-shell-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes aurora-child-rise {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes aurora-fade-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1024px) {
+            .aurora-auth-shell {
+                align-items: stretch;
+                padding: 8px;
+            }
+
+            .aurora-auth-main {
+                min-height: calc(100vh - 16px);
+                overflow-y: auto;
+            }
+
+            .aurora-hero-panel {
+                display: none;
+            }
+
+            .aurora-form-panel {
+                padding: 64px 24px 32px;
+                overflow: visible;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .aurora-auth-main {
+                border-radius: 22px;
+            }
+
+            .aurora-form-panel {
+                padding: 62px 18px 26px;
+            }
+
+            .aurora-social-grid,
+            .aurora-two-grid,
+            .aurora-choice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aurora-panel-header h2 {
+                font-size: 28px;
+            }
+        }
     </style>
 </head>
 <body class="font-body-md text-on-surface antialiased">
@@ -449,8 +971,8 @@
 <a class="nav-link text-white/80 hover:text-white transition-colors font-body-md text-body-md" href="#">Success Stories</a>
 </div>
 <div class="flex items-center gap-4">
-<button class="nav-link px-6 py-2 text-white/80 font-medium hover:text-white transition-colors font-body-md">Login</button>
-<button class="nav-cta liquid-glass border-white/20 bg-white/10 px-6 py-2.5 text-white rounded-full font-semibold hover:scale-105 transition-all font-body-md">Get Started</button>
+<button class="nav-link px-6 py-2 text-white/80 font-medium hover:text-white transition-colors font-body-md" data-auth-open="login">Login</button>
+<button class="nav-cta liquid-glass border-white/20 bg-white/10 px-6 py-2.5 text-white rounded-full font-semibold hover:scale-105 transition-all font-body-md" data-auth-open="signup">Get Started</button>
 </div>
 </div>
 </nav>
@@ -466,7 +988,7 @@
                     AI-powered career guidance for the next generation.
                 </p>
 <div class="flex flex-col sm:flex-row gap-6 mt-4 w-full justify-center">
-<button class="liquid-glass border-white/30 bg-white/10 px-12 py-6 rounded-full font-inter font-semibold text-white text-lg hover:scale-105 transition-all duration-500 flex items-center justify-center gap-3">
+<button class="liquid-glass border-white/30 bg-white/10 px-12 py-6 rounded-full font-inter font-semibold text-white text-lg hover:scale-105 transition-all duration-500 flex items-center justify-center gap-3" data-auth-open="signup">
                         Explore Your Career Path
                         <span class="material-symbols-outlined">arrow_forward</span>
 </button>
@@ -809,6 +1331,165 @@
 </footer>
 </div>
 </main>
+<div class="aurora-auth-shell" id="aurora-auth-modal" aria-hidden="true">
+<main class="aurora-auth-main" aria-label="Aurora Sign Up">
+<button class="aurora-auth-close" id="aurora-auth-close" aria-label="Close registration">
+<i data-lucide="x"></i>
+</button>
+<section class="aurora-hero-panel" aria-label="Aurora onboarding story">
+<video autoplay="" muted="" loop="" playsinline="">
+<source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260506_081238_406ed0e3-5d83-436e-a512-0bbff7ec5b95.mp4" type="video/mp4"/>
+</video>
+<div class="aurora-hero-content">
+<div class="aurora-brand aurora-reveal">
+<i data-lucide="circle"></i>
+<span>Aurora</span>
+</div>
+<div class="aurora-copy aurora-reveal">
+<h2>Join Aurora</h2>
+<p>Follow these 3 quick phases to activate your space.</p>
+</div>
+<div class="aurora-steps aurora-reveal">
+<div class="aurora-step active" data-aurora-step="1">
+<span class="aurora-step-number">1</span>
+<span>Register your identity</span>
+</div>
+<div class="aurora-step" data-aurora-step="2">
+<span class="aurora-step-number">2</span>
+<span>Configure your studio</span>
+</div>
+<div class="aurora-step" data-aurora-step="3">
+<span class="aurora-step-number">3</span>
+<span>Finalize your profile</span>
+</div>
+</div>
+</div>
+</section>
+<section class="aurora-form-panel">
+<div class="aurora-form-inner">
+<div class="aurora-auth-stage active" id="aurora-stage-register">
+<div class="aurora-panel-header">
+<h2>Create New Profile</h2>
+<p>Input your basic details to begin the journey.</p>
+</div>
+<div class="aurora-social-grid">
+<button class="aurora-social-btn" id="aurora-google-btn" type="button">
+<i data-lucide="chrome"></i>
+<span>Google</span>
+</button>
+<button class="aurora-social-btn" id="aurora-github-btn" type="button">
+<i data-lucide="github"></i>
+<span>Github</span>
+</button>
+</div>
+<div class="aurora-divider"><span>Or</span></div>
+<form id="aurora-register-form" class="aurora-auth-stage active">
+<div class="aurora-two-grid">
+<div class="aurora-input-group">
+<label for="aurora-first-name">First Name</label>
+<input class="aurora-input" id="aurora-first-name" name="firstName" placeholder="Aryan" type="text" autocomplete="given-name" required/>
+</div>
+<div class="aurora-input-group">
+<label for="aurora-last-name">Last Name</label>
+<input class="aurora-input" id="aurora-last-name" name="lastName" placeholder="Sharma" type="text" autocomplete="family-name" required/>
+</div>
+</div>
+<div class="aurora-input-group">
+<label for="aurora-email">Email</label>
+<input class="aurora-input" id="aurora-email" name="email" placeholder="you@example.com" type="email" autocomplete="email" required/>
+</div>
+<div class="aurora-input-group">
+<label for="aurora-password">Password</label>
+<div class="aurora-password-wrap">
+<input class="aurora-input" id="aurora-password" name="password" placeholder="Create a strong password" type="password" autocomplete="new-password" minlength="8" required/>
+<button class="aurora-eye-btn" id="aurora-password-toggle" type="button" aria-label="Show password">
+<i data-lucide="eye"></i>
+</button>
+</div>
+<p class="aurora-helper">Requires at least 8 symbols.</p>
+</div>
+<p class="aurora-status" id="aurora-register-status"></p>
+<button class="aurora-primary-btn" type="submit">Create Account</button>
+</form>
+<p class="aurora-footer-note">Member of the team? <button type="button" id="aurora-login-link">Log in</button></p>
+</div>
+<div class="aurora-auth-stage" id="aurora-stage-profile">
+<div class="aurora-panel-header">
+<h2>Shape Your CareerOS Space</h2>
+<p>Tell us where you are now so Aurora can personalize the first roadmap.</p>
+</div>
+<div class="aurora-profile-card" id="aurora-profile-card"></div>
+<form id="aurora-profile-form" class="aurora-auth-stage active">
+<div class="aurora-two-grid">
+<div class="aurora-input-group">
+<label for="aurora-profile-name">Display Name</label>
+<input class="aurora-input" id="aurora-profile-name" placeholder="Your name" type="text" required/>
+</div>
+<div class="aurora-input-group">
+<label for="aurora-profile-city">City</label>
+<input class="aurora-input" id="aurora-profile-city" placeholder="Hyderabad" type="text"/>
+</div>
+</div>
+<div class="aurora-input-group">
+<label>Current Stage</label>
+<div class="aurora-choice-grid" id="aurora-stage-choices">
+<button class="aurora-choice selected" type="button" data-stage="10th">
+<strong>Class 10</strong>
+<span>Discover streams, skills, and early aptitude patterns.</span>
+</button>
+<button class="aurora-choice" type="button" data-stage="12th">
+<strong>Class 12</strong>
+<span>Choose entrance paths, colleges, and scholarship routes.</span>
+</button>
+<button class="aurora-choice" type="button" data-stage="Graduate">
+<strong>Graduate</strong>
+<span>Build internships, resumes, interview readiness, and placement plans.</span>
+</button>
+<button class="aurora-choice" type="button" data-stage="Career Switch">
+<strong>Career Switch</strong>
+<span>Map transferable skills into a realistic transition plan.</span>
+</button>
+</div>
+</div>
+<div class="aurora-two-grid">
+<div class="aurora-input-group">
+<label for="aurora-goal">Primary Goal</label>
+<select class="aurora-select" id="aurora-goal">
+<option>Find my best career path</option>
+<option>Prepare for entrance exams</option>
+<option>Choose colleges</option>
+<option>Build resume and portfolio</option>
+<option>Practice interviews</option>
+</select>
+</div>
+<div class="aurora-input-group">
+<label for="aurora-interest">Interest Area</label>
+<select class="aurora-select" id="aurora-interest">
+<option>AI and Technology</option>
+<option>Design and Product</option>
+<option>Business and Finance</option>
+<option>Medicine and Life Sciences</option>
+<option>Creative Careers</option>
+</select>
+</div>
+</div>
+<p class="aurora-status" id="aurora-profile-status"></p>
+<button class="aurora-primary-btn" type="submit">Activate My Roadmap</button>
+</form>
+</div>
+<div class="aurora-auth-stage" id="aurora-stage-success">
+<div class="aurora-success-orbit">
+<div>
+<h3>Your Aurora profile is live.</h3>
+<p id="aurora-success-copy">CareerOS AI is ready to shape your first roadmap.</p>
+</div>
+</div>
+<button class="aurora-primary-btn" id="aurora-finish-btn" type="button">Continue Exploring</button>
+</div>
+</div>
+</section>
+</main>
+</div>
 <script>
     lucide.createIcons();
 
@@ -1078,6 +1759,343 @@
         window.addEventListener("resize", () => requestAnimationFrame(draw), { passive: true });
     }
 
+    function initAuroraAuth() {
+        const GOOGLE_CLIENT_ID = "88154202029-fjmjbps7l2rrs9jtte70kqo070crov0q.apps.googleusercontent.com";
+        const AUTH_API_BASE = "https://jobcluster-2.onrender.com";
+        const modal = document.getElementById("aurora-auth-modal");
+        const closeButton = document.getElementById("aurora-auth-close");
+        const registerStage = document.getElementById("aurora-stage-register");
+        const profileStage = document.getElementById("aurora-stage-profile");
+        const successStage = document.getElementById("aurora-stage-success");
+        const registerForm = document.getElementById("aurora-register-form");
+        const profileForm = document.getElementById("aurora-profile-form");
+        const profileCard = document.getElementById("aurora-profile-card");
+        const status = document.getElementById("aurora-register-status");
+        const profileStatus = document.getElementById("aurora-profile-status");
+        const googleButton = document.getElementById("aurora-google-btn");
+        const githubButton = document.getElementById("aurora-github-btn");
+        const loginLink = document.getElementById("aurora-login-link");
+        const finishButton = document.getElementById("aurora-finish-btn");
+        const password = document.getElementById("aurora-password");
+        const passwordToggle = document.getElementById("aurora-password-toggle");
+        let selectedStage = "10th";
+        let googleTokenClient = null;
+
+        if (!modal) return;
+
+        const decodeJwt = (token) => {
+            try {
+                const payload = token.split(".")[1];
+                const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+                const json = decodeURIComponent(atob(normalized).split("").map((character) => {
+                    return "%" + ("00" + character.charCodeAt(0).toString(16)).slice(-2);
+                }).join(""));
+                return JSON.parse(json);
+            } catch (error) {
+                return null;
+            }
+        };
+
+        const setStatus = (message, type = "") => {
+            status.textContent = message;
+            status.className = `aurora-status ${type}`.trim();
+        };
+
+        const setProfileStatus = (message, type = "") => {
+            profileStatus.textContent = message;
+            profileStatus.className = `aurora-status ${type}`.trim();
+        };
+
+        const getStoredUser = () => {
+            try {
+                return JSON.parse(localStorage.getItem("auroraUser") || localStorage.getItem("user") || "null");
+            } catch (error) {
+                return null;
+            }
+        };
+
+        const saveUser = (user) => {
+            const cleanUser = {
+                id: user.id || user.sub || user.email || crypto.randomUUID(),
+                email: user.email || "",
+                displayName: user.displayName || user.name || `${user.firstName || ""} ${user.lastName || ""}`.trim() || "CareerOS Member",
+                firstName: user.firstName || user.given_name || "",
+                lastName: user.lastName || user.family_name || "",
+                photoURL: user.photoURL || user.picture || "",
+                provider: user.provider || "local",
+                signedInAt: new Date().toISOString()
+            };
+            localStorage.setItem("auroraUser", JSON.stringify(cleanUser));
+            localStorage.setItem("user", JSON.stringify(cleanUser));
+            return cleanUser;
+        };
+
+        const updateHeroSteps = (stepNumber) => {
+            document.querySelectorAll("[data-aurora-step]").forEach((step) => {
+                const isActive = Number(step.dataset.auroraStep) === stepNumber;
+                step.classList.toggle("active", isActive);
+            });
+        };
+
+        const showStage = (name) => {
+            registerStage.classList.toggle("active", name === "register");
+            profileStage.classList.toggle("active", name === "profile");
+            successStage.classList.toggle("active", name === "success");
+            updateHeroSteps(name === "register" ? 1 : name === "profile" ? 2 : 3);
+            if (name === "profile") renderProfileCard();
+        };
+
+        const openModal = (mode = "signup") => {
+            const storedUser = getStoredUser();
+            modal.classList.add("active");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("auth-lock");
+            showStage(storedUser && mode !== "signup" ? "profile" : "register");
+            if (storedUser && mode === "signup") {
+                showStage("profile");
+            }
+            requestAnimationFrame(() => lucide.createIcons());
+        };
+
+        const closeModal = () => {
+            modal.classList.remove("active");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("auth-lock");
+        };
+
+        const renderProfileCard = () => {
+            const user = getStoredUser();
+            if (!user) {
+                profileCard.innerHTML = "";
+                return;
+            }
+
+            const initials = (user.displayName || user.email || "A")
+                .split(/\s+/)
+                .map((part) => part[0])
+                .join("")
+                .slice(0, 2)
+                .toUpperCase();
+
+            const avatar = user.photoURL
+                ? `<img src="${user.photoURL}" alt="${user.displayName}" referrerpolicy="no-referrer">`
+                : `<span class="aurora-avatar-fallback">${initials}</span>`;
+
+            profileCard.innerHTML = `
+                ${avatar}
+                <div>
+                    <div class="font-bold">${user.displayName}</div>
+                    <div class="text-sm text-white/40">${user.email || "Aurora local profile"}</div>
+                </div>
+            `;
+
+            const nameInput = document.getElementById("aurora-profile-name");
+            if (nameInput && !nameInput.value) nameInput.value = user.displayName;
+        };
+
+        const updateNavForUser = () => {
+            const user = getStoredUser();
+            if (!user) return;
+            const firstName = user.firstName || (user.displayName || "Profile").split(" ")[0];
+            document.querySelectorAll("[data-auth-open]").forEach((button) => {
+                if (button.dataset.authOpen === "signup") button.textContent = firstName;
+                if (button.dataset.authOpen === "login") button.textContent = "Profile";
+            });
+        };
+
+        const handleAuthenticatedUser = (user, message = "Google login complete. Configure your profile next.") => {
+            const saved = saveUser(user);
+            setStatus(message, "success");
+            document.getElementById("aurora-first-name").value = saved.firstName || "";
+            document.getElementById("aurora-last-name").value = saved.lastName || "";
+            document.getElementById("aurora-email").value = saved.email || "";
+            updateNavForUser();
+            showStage("profile");
+        };
+
+        const setupGoogle = () => {
+            if (!window.google || !window.google.accounts || !window.google.accounts.oauth2) {
+                setTimeout(setupGoogle, 400);
+                return;
+            }
+
+            googleTokenClient = window.google.accounts.oauth2.initTokenClient({
+                client_id: GOOGLE_CLIENT_ID,
+                scope: "openid email profile",
+                prompt: "select_account",
+                callback: async (tokenResponse) => {
+                    if (!tokenResponse || tokenResponse.error) {
+                        setStatus("Google sign-in was cancelled or blocked. Try again from the deployed Vercel URL.", "error");
+                        return;
+                    }
+
+                    try {
+                        setStatus("Verifying your Google profile...");
+                        const response = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                            headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+                        });
+                        if (!response.ok) throw new Error("Google profile request failed");
+                        const profile = await response.json();
+                        handleAuthenticatedUser({
+                            id: profile.sub,
+                            email: profile.email,
+                            displayName: profile.name,
+                            firstName: profile.given_name,
+                            lastName: profile.family_name,
+                            photoURL: profile.picture,
+                            provider: "google"
+                        });
+                    } catch (error) {
+                        setStatus("Google connected, but profile loading failed. Please try once more.", "error");
+                    }
+                }
+            });
+        };
+
+        const handleBackendToken = async () => {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get("token");
+            const authError = params.get("auth") === "error";
+
+            if (authError) {
+                openModal("login");
+                setStatus("Google authentication failed. Please try again.", "error");
+                window.history.replaceState({}, document.title, "/");
+                return;
+            }
+
+            if (!token) return;
+
+            localStorage.setItem("jc_token", token);
+            localStorage.setItem("jwt", token);
+            localStorage.setItem("authToken", token);
+            localStorage.setItem("token", token);
+
+            let userFromBackend = null;
+            try {
+                const response = await fetch(`${AUTH_API_BASE}/auth/me`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                if (response.ok) userFromBackend = await response.json();
+            } catch (error) {
+                userFromBackend = null;
+            }
+
+            const decoded = userFromBackend || decodeJwt(token) || {};
+            openModal("login");
+            handleAuthenticatedUser({
+                id: decoded.id || decoded.sub,
+                email: decoded.email,
+                displayName: decoded.displayName || decoded.name,
+                firstName: decoded.firstName || decoded.given_name,
+                lastName: decoded.lastName || decoded.family_name,
+                photoURL: decoded.photoURL || decoded.picture,
+                provider: decoded.provider || "google"
+            }, "Backend Google login complete. Configure your CareerOS space.");
+            window.history.replaceState({}, document.title, "/");
+        };
+
+        document.querySelectorAll("[data-auth-open]").forEach((button) => {
+            button.addEventListener("click", () => openModal(button.dataset.authOpen));
+        });
+
+        closeButton.addEventListener("click", closeModal);
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) closeModal();
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modal.classList.contains("active")) closeModal();
+        });
+
+        googleButton.addEventListener("click", () => {
+            if (location.protocol === "file:") {
+                setStatus("Google auth needs the deployed origin: https://career-os-ai.vercel.app", "error");
+                return;
+            }
+
+            if (googleTokenClient) {
+                setStatus("Opening Google account chooser...");
+                googleTokenClient.requestAccessToken();
+            } else {
+                setStatus("Google is still loading. Try again in a second.", "error");
+            }
+        });
+
+        githubButton.addEventListener("click", () => {
+            setStatus("GitHub auth is parked for the next pass. Google is ready for this build.", "error");
+        });
+
+        loginLink.addEventListener("click", () => {
+            const storedUser = getStoredUser();
+            if (storedUser) {
+                showStage("profile");
+            } else {
+                setStatus("Use Google to log in, or create a local preview profile below.");
+            }
+        });
+
+        passwordToggle.addEventListener("click", () => {
+            const isPassword = password.type === "password";
+            password.type = isPassword ? "text" : "password";
+            passwordToggle.innerHTML = `<i data-lucide="${isPassword ? "eye-off" : "eye"}"></i>`;
+            lucide.createIcons();
+        });
+
+        registerForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const form = new FormData(registerForm);
+            if ((form.get("password") || "").length < 8) {
+                setStatus("Password must contain at least 8 symbols.", "error");
+                return;
+            }
+            handleAuthenticatedUser({
+                firstName: form.get("firstName"),
+                lastName: form.get("lastName"),
+                email: form.get("email"),
+                displayName: `${form.get("firstName")} ${form.get("lastName")}`.trim(),
+                provider: "local"
+            }, "Local preview profile created. Google login is available on the deployed URL.");
+        });
+
+        document.querySelectorAll(".aurora-choice").forEach((choice) => {
+            choice.addEventListener("click", () => {
+                selectedStage = choice.dataset.stage;
+                document.querySelectorAll(".aurora-choice").forEach((item) => item.classList.remove("selected"));
+                choice.classList.add("selected");
+            });
+        });
+
+        profileForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const user = getStoredUser() || {};
+            const profile = {
+                name: document.getElementById("aurora-profile-name").value,
+                city: document.getElementById("aurora-profile-city").value,
+                stage: selectedStage,
+                goal: document.getElementById("aurora-goal").value,
+                interest: document.getElementById("aurora-interest").value,
+                completedAt: new Date().toISOString()
+            };
+            localStorage.setItem("auroraProfile", JSON.stringify(profile));
+            localStorage.setItem("auroraUser", JSON.stringify({ ...user, displayName: profile.name || user.displayName }));
+            setProfileStatus("Profile saved. Building your first roadmap...", "success");
+            document.getElementById("aurora-success-copy").textContent = `${profile.stage} roadmap focused on ${profile.goal.toLowerCase()} is ready to explore.`;
+            setTimeout(() => {
+                updateNavForUser();
+                showStage("success");
+            }, 450);
+        });
+
+        finishButton.addEventListener("click", () => {
+            closeModal();
+            document.getElementById("features")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        setupGoogle();
+        updateNavForUser();
+        handleBackendToken();
+    }
+
     function initExperience() {
         window.scrollTo(0, 0);
         holdInitialScrollTop();
@@ -1273,6 +2291,7 @@
         setTimeout(revealMissedContent, 500);
     }
 
+    initAuroraAuth();
     initExperience();
 </script>
 </body></html>
