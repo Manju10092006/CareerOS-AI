@@ -9,6 +9,10 @@
     {
       "source": "/dashboard",
       "destination": "/index.html"
+    },
+    {
+      "source": "/guidance",
+      "destination": "/guidance/index.html"
     }
   ]
 }
