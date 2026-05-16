@@ -1310,9 +1310,9 @@
 <div class="font-headline-lg text-headline-lg font-bold text-primary tracking-tighter">CareerOS AI</div>
 <p class="text-on-surface-variant text-lg leading-relaxed">Revolutionizing career guidance through personalized AI roadmaps. Empowering the next generation of global talent.</p>
 <div class="flex gap-5">
-<a class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><i class="w-6 h-6" data-lucide="facebook"></i></a>
-<a class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><i class="w-6 h-6" data-lucide="linkedin"></i></a>
-<a class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><i class="w-6 h-6" data-lucide="instagram"></i></a>
+<a class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><i class="w-6 h-6" data-lucide="share-2"></i></a>
+<a class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><i class="w-6 h-6" data-lucide="briefcase-business"></i></a>
+<a class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all" href="#"><i class="w-6 h-6" data-lucide="camera"></i></a>
 </div>
 </div>
 <div class="section-reveal-init">
@@ -1393,11 +1393,11 @@
 </div>
 <div class="aurora-social-grid">
 <button class="aurora-social-btn" id="aurora-google-btn" type="button">
-<i data-lucide="chrome"></i>
+<i data-lucide="key-round"></i>
 <span>Google</span>
 </button>
 <button class="aurora-social-btn" id="aurora-github-btn" type="button">
-<i data-lucide="github"></i>
+<i data-lucide="code-2"></i>
 <span>Github</span>
 </button>
 </div>
@@ -1932,6 +1932,65 @@
             showStage("profile");
         };
 
+        const handleGoogleAccessToken = async (accessToken, message = "Google login complete. Configure your CareerOS space.") => {
+            try {
+                setStatus("Verifying your Google profile...");
+                const response = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                });
+                if (!response.ok) throw new Error("Google profile request failed");
+                const profile = await response.json();
+                handleAuthenticatedUser({
+                    id: profile.sub,
+                    email: profile.email,
+                    displayName: profile.name,
+                    firstName: profile.given_name,
+                    lastName: profile.family_name,
+                    photoURL: profile.picture,
+                    provider: "google"
+                }, message);
+            } catch (error) {
+                setStatus("Google connected, but profile loading failed. Please try once more.", "error");
+            }
+        };
+
+        const startGoogleRedirect = () => {
+            if (window.location.origin !== "https://career-os-ai.vercel.app") {
+                setStatus("Google auth is configured for https://career-os-ai.vercel.app. Open the deployed site to continue.", "error");
+                return;
+            }
+
+            const params = new URLSearchParams({
+                client_id: GOOGLE_CLIENT_ID,
+                redirect_uri: "https://career-os-ai.vercel.app",
+                response_type: "token",
+                scope: "openid email profile",
+                prompt: "select_account",
+                include_granted_scopes: "true",
+                state: "career-os-ai"
+            });
+            window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+        };
+
+        const handleGoogleOAuthReturn = async () => {
+            if (!window.location.hash || !window.location.hash.includes("access_token")) return;
+
+            const params = new URLSearchParams(window.location.hash.slice(1));
+            const authError = params.get("error");
+            const accessToken = params.get("access_token");
+            const cleanPath = window.location.pathname || "/";
+
+            openModal("login");
+            window.history.replaceState({}, document.title, cleanPath);
+
+            if (authError || !accessToken) {
+                setStatus("Google authentication failed. Please try again.", "error");
+                return;
+            }
+
+            await handleGoogleAccessToken(accessToken, "Google login complete. Configure your CareerOS space.");
+        };
+
         const setupGoogle = () => {
             if (!window.google || !window.google.accounts || !window.google.accounts.oauth2) {
                 setTimeout(setupGoogle, 400);
@@ -1948,25 +2007,7 @@
                         return;
                     }
 
-                    try {
-                        setStatus("Verifying your Google profile...");
-                        const response = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-                            headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
-                        });
-                        if (!response.ok) throw new Error("Google profile request failed");
-                        const profile = await response.json();
-                        handleAuthenticatedUser({
-                            id: profile.sub,
-                            email: profile.email,
-                            displayName: profile.name,
-                            firstName: profile.given_name,
-                            lastName: profile.family_name,
-                            photoURL: profile.picture,
-                            provider: "google"
-                        });
-                    } catch (error) {
-                        setStatus("Google connected, but profile loading failed. Please try once more.", "error");
-                    }
+                    await handleGoogleAccessToken(tokenResponse.access_token);
                 }
             });
         };
@@ -2036,7 +2077,8 @@
                 setStatus("Opening Google account chooser...");
                 googleTokenClient.requestAccessToken();
             } else {
-                setStatus("Google is still loading. Try again in a second.", "error");
+                setStatus("Opening secure Google redirect...");
+                startGoogleRedirect();
             }
         });
 
@@ -2112,6 +2154,7 @@
 
         setupGoogle();
         updateNavForUser();
+        handleGoogleOAuthReturn();
         handleBackendToken();
     }
 
