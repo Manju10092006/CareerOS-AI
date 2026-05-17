@@ -741,8 +741,11 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            filter: saturate(118%) contrast(0.94) brightness(1.08);
-            mix-blend-mode: multiply;
+            filter: saturate(58%) contrast(0.72) brightness(1.22) blur(1.2px);
+            mix-blend-mode: normal;
+            transform: scale(1.015);
+            mask-image: radial-gradient(ellipse at 52% 48%, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.3) 48%, rgba(0, 0, 0, 0.08) 78%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse at 52% 48%, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.3) 48%, rgba(0, 0, 0, 0.08) 78%, transparent 100%);
             pointer-events: none;
             transition: opacity 120ms linear;
         }
@@ -932,7 +935,7 @@
 
         .liquid-orb-stage {
             position: relative;
-            min-height: clamp(420px, 44vw, 650px);
+            min-height: clamp(360px, 38vw, 560px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -942,8 +945,8 @@
         .liquid-orb-stage::before {
             content: "";
             position: absolute;
-            width: min(680px, 54vw);
-            height: min(680px, 54vw);
+            width: min(560px, 45vw);
+            height: min(560px, 45vw);
             border-radius: 50%;
             background:
                 radial-gradient(circle, rgba(255, 255, 255, 0.74), rgba(216, 239, 255, 0.2) 34%, transparent 70%),
@@ -954,13 +957,13 @@
         .liquid-orb-video {
             position: relative;
             z-index: 1;
-            width: min(620px, 48vw);
+            width: min(520px, 40vw);
             max-width: 100%;
             aspect-ratio: 1 / 1;
             object-fit: cover;
             mix-blend-mode: screen;
-            transform: scale(1.25);
-            filter: hue-rotate(-55deg) saturate(250%) brightness(1.2) contrast(1.1);
+            transform: scale(1.12);
+            filter: hue-rotate(-55deg) saturate(220%) brightness(1.14) contrast(1.02);
             pointer-events: none;
         }
 
@@ -997,10 +1000,10 @@
         .orb-insight-card {
             position: absolute;
             z-index: 3;
-            left: 2%;
-            bottom: 12%;
-            width: min(290px, 46vw);
-            padding: 18px;
+            left: 4%;
+            bottom: 10%;
+            width: min(270px, 42vw);
+            padding: 17px;
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.48);
             backdrop-filter: blur(42px);
@@ -2211,7 +2214,7 @@
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             if (heroVideo && !reduceMotion) {
-                const maxOpacity = 0.24;
+                const maxOpacity = 0.085;
                 const fadeMs = 500;
 
                 const updateVideoOpacity = () => {
