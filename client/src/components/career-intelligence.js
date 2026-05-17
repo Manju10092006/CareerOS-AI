@@ -83,7 +83,19 @@
         const atsScore = clamp(technicalScore * 0.52 + impactScore * 0.25 + projectScore * 0.23);
         const discoverability = clamp(headlineScore * 0.3 + summaryScore * 0.25 + technicalScore * 0.3 + projectScore * 0.15);
         const roleMatch = clamp(technicalScore * 0.72 + projectScore * 0.28);
-        const overallScore = clamp(atsScore * 0.22 + headlineScore * 0.12 + summaryScore * 0.13 + technicalScore * 0.2 + discoverability * 0.18 + roleMatch * 0.15);
+        const hasProfileContent = [
+            payload.resumeText,
+            payload.linkedinHeadline,
+            payload.linkedinSummary,
+            payload.experienceText,
+            payload.educationText,
+            payload.githubText,
+            payload.portfolioText,
+            payload.certifications
+        ].some((value) => normalize(value).length > 20);
+        const overallScore = hasProfileContent
+            ? clamp(atsScore * 0.2 + headlineScore * 0.11 + summaryScore * 0.12 + technicalScore * 0.18 + discoverability * 0.17 + roleMatch * 0.14 + linkedinUrl.score * 0.08)
+            : linkedinUrl.score;
 
         const section = (score, title, insight) => ({ score, title, insight, status: score >= 85 ? "Excellent" : score >= 70 ? "Strong" : score >= 50 ? "Needs Review" : "Critical Gap" });
         return {

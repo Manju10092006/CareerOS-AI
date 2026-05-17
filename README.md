@@ -1,4 +1,4 @@
-# CareerOS AI / CareerOS AI
+# CareerOS AI
 
 This project contains the CareerOS guidance pages and the full CareerOS AI codebase inside the same repository.
 
@@ -64,6 +64,6 @@ This starts:
 
 The CareerOS AI code is not only referenced from GitHub. It has been copied into this project repository under `client`, `server`, `resume-server`, and `auth-server`.
 
-The file `CareerOS_README.md` keeps the original CareerOS AI README content for reference.
+The file `docs/careeros-code-map.md` maps the imported frontend, backend, resume, auth, and route-bridge code locations.
 
 The root `index.html` is only a small redirect bridge so local `/` opens the original CareerOS AI landing page.
