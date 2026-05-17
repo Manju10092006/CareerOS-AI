@@ -73,7 +73,7 @@ const AuthUI = {
 
         const {
             signupUrl = 'signup.html',
-            profileUrl = 'Dashboard redesign/index.html#view-profile',
+            profileUrl = '/graduate/dashboard/#view-profile',
             buttonClass = 'btn-header',
             avatarSize = 40
         } = options;
@@ -364,10 +364,7 @@ const AuthUI = {
                     // Clean URL
                     window.history.replaceState({}, document.title, window.location.pathname);
                     // Redirect to dashboard
-                    const dashboardPath = window.location.pathname.includes('frontend')
-                        ? '../dashboard/index.html'
-                        : 'Dashboard redesign/index.html';
-                    window.location.href = dashboardPath;
+                    window.location.href = '/graduate/dashboard/';
                 }
             } catch (error) {
                 console.error('Error fetching user after OAuth:', error);
@@ -410,8 +407,8 @@ const AuthUI = {
     refreshAllAuthUI() {
         document.querySelectorAll('.auth-ui-container').forEach(container => {
             this.renderAuthUI(container, {
-                signupUrl: container.getAttribute('data-signup-url') || 'signup.html',
-                profileUrl: container.getAttribute('data-profile-url') || 'Dashboard redesign/index.html#view-profile',
+                signupUrl: container.getAttribute('data-signup-url') || '/signup/',
+                profileUrl: container.getAttribute('data-profile-url') || '/graduate/dashboard/#view-profile',
                 buttonClass: container.getAttribute('data-button-class') || 'btn-header',
                 avatarSize: 40
             });
@@ -442,9 +439,7 @@ const AuthUI = {
         // Redirect to home or signup page
         const currentPath = window.location.pathname;
         if (currentPath.includes('dashboard') || currentPath.includes('Dashboard')) {
-            window.location.href = currentPath.includes('frontend')
-                ? '../index.html'
-                : '../index.html';
+            window.location.href = '/';
         }
     },
 
@@ -466,8 +461,8 @@ const AuthUI = {
         // Render all auth UI containers
         document.querySelectorAll('.auth-ui-container').forEach(container => {
             this.renderAuthUI(container, {
-                signupUrl: container.getAttribute('data-signup-url') || 'signup.html',
-                profileUrl: container.getAttribute('data-profile-url') || 'Dashboard redesign/index.html#view-profile',
+                signupUrl: container.getAttribute('data-signup-url') || '/signup/',
+                profileUrl: container.getAttribute('data-profile-url') || '/graduate/dashboard/#view-profile',
                 buttonClass: container.getAttribute('data-button-class') || 'btn-header',
                 avatarSize: 40
             });

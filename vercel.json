@@ -4,17 +4,32 @@
   "redirects": [
     {
       "source": "/client/src/pages",
-      "destination": "/",
+      "destination": "/graduate",
       "permanent": false
     },
     {
       "source": "/client/src/pages/",
-      "destination": "/",
+      "destination": "/graduate",
       "permanent": false
     },
     {
       "source": "/client/src/pages/index.html",
-      "destination": "/",
+      "destination": "/graduate",
+      "permanent": false
+    },
+    {
+      "source": "/client/src/pages/dashboard",
+      "destination": "/graduate",
+      "permanent": false
+    },
+    {
+      "source": "/client/src/pages/dashboard/",
+      "destination": "/graduate",
+      "permanent": false
+    },
+    {
+      "source": "/client/src/pages/dashboard/index.html",
+      "destination": "/graduate/dashboard",
       "permanent": false
     }
   ],
@@ -53,6 +68,10 @@
     },
     {
       "source": "/graduate",
+      "destination": "/client/src/pages/index.html"
+    },
+    {
+      "source": "/graduate/dashboard",
       "destination": "/client/src/pages/dashboard/index.html"
     }
   ]
