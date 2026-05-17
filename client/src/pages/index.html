@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerOS AI – Intelligent Career Intelligence Platform</title>
+    <title>CareerOS AI â€“ Intelligent Career Intelligence Platform</title>
     <meta name="description"
-        content="CareerOS AI – AI-powered skill assessment, career discovery, and intelligent job matching platform.">
+        content="CareerOS AI â€“ AI-powered skill assessment, career discovery, and intelligent job matching platform.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png"
@@ -16,10 +16,10 @@
     <link rel="apple-touch-icon"
         href="/client/public/images/careeros-icon.svg">
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Fustat + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="/client/src/styles/styles.css">
@@ -37,8 +37,8 @@
 
     <style>
         /* -----------------------------------------------------------
-           HERO — ASCII Dot Art + Bold Typography
-           Axial.ai Inspired · No Images · Pure CSS + Unicode
+           HERO â€” ASCII Dot Art + Bold Typography
+           Axial.ai Inspired Â· No Images Â· Pure CSS + Unicode
            ----------------------------------------------------------- */
 
         /* -- Navbar Override: blend with hero -- */
@@ -578,6 +578,522 @@
         .dash-mock {
             animation: dmFloat 5s ease-in-out infinite;
         }
+
+        /* -----------------------------------------------------------
+           LIQUID GLASS HERO â€” CareerOS AI
+           ----------------------------------------------------------- */
+        :root {
+            --career-blue: #0084ff;
+            --career-blue-soft: #60B1FF;
+            --career-ink: #07111f;
+            --career-muted: #64748b;
+        }
+
+        html,
+        body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: geometricPrecision;
+        }
+
+        body {
+            background: #ffffff !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .header {
+            position: sticky !important;
+            top: 30px !important;
+            z-index: 1000 !important;
+            width: 100%;
+            background: transparent !important;
+            border: 0 !important;
+            box-shadow: none !important;
+            pointer-events: none;
+        }
+
+        .header .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 32px;
+            background: transparent !important;
+        }
+
+        .header .header-content {
+            width: fit-content;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            background: transparent !important;
+            pointer-events: auto;
+        }
+
+        .header .logo,
+        .header .nav {
+            position: static !important;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            transform: none !important;
+        }
+
+        .header .logo-link,
+        .header .nav {
+            background: rgba(255, 255, 255, 0.3) !important;
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow:
+                inset 0 4px 4px rgba(255, 255, 255, 0.25),
+                0 24px 80px rgba(15, 23, 42, 0.08);
+            border-radius: 16px;
+        }
+
+        .header .logo-link {
+            min-height: 58px;
+            padding: 0 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .header .logo-text {
+            font-family: 'Fustat', 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--career-ink);
+            min-height: 0;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+            mix-blend-mode: normal;
+            filter: none;
+        }
+
+        .header .nav {
+            min-height: 58px;
+            width: fit-content;
+            padding: 8px 10px 8px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .header .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(7, 17, 31, 0.78);
+            padding: 12px 10px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: color 220ms ease, background 220ms ease;
+        }
+
+        .header .nav-link:hover {
+            color: var(--career-ink);
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        .header .auth-ui-container {
+            min-width: 42px;
+            min-height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-redesign {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 10% 0%, rgba(96, 177, 255, 0.28) 0%, rgba(96, 177, 255, 0.14) 28%, transparent 58%),
+                radial-gradient(ellipse at 0% 18%, rgba(49, 154, 255, 0.18) 0%, transparent 45%),
+                #ffffff;
+            padding: 126px 32px 52px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .hero-redesign::before,
+        .hero-redesign::after {
+            content: "";
+            position: absolute;
+            pointer-events: none;
+            border-radius: 999px;
+            filter: blur(72px);
+            opacity: 0.78;
+            z-index: 0;
+        }
+
+        .hero-redesign::before {
+            width: 520px;
+            height: 260px;
+            top: -82px;
+            left: -110px;
+            background: rgba(96, 177, 255, 0.34);
+        }
+
+        .hero-redesign::after {
+            width: 420px;
+            height: 220px;
+            top: 76px;
+            left: 130px;
+            background: rgba(49, 154, 255, 0.18);
+        }
+
+        .liquid-hero-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(420px, 0.88fr);
+            align-items: center;
+            gap: clamp(42px, 7vw, 120px);
+        }
+
+        .liquid-hero-copy {
+            max-width: 690px;
+        }
+
+        .hero-proof-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 13px;
+            margin-bottom: 28px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.52);
+            backdrop-filter: blur(36px);
+            -webkit-backdrop-filter: blur(36px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.25), 0 18px 70px rgba(15, 23, 42, 0.08);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: rgba(7, 17, 31, 0.72);
+        }
+
+        .hero-proof-stars {
+            color: #FF801E;
+            letter-spacing: 1px;
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .liquid-hero-title {
+            margin: 0;
+            font-family: 'Fustat', 'Inter', sans-serif;
+            font-size: clamp(48px, 5.15vw, 75px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            font-weight: 800;
+            color: var(--career-ink);
+        }
+
+        .liquid-hero-title span {
+            display: block;
+            color: rgba(0, 132, 255, 0.92);
+        }
+
+        .liquid-hero-subtitle {
+            max-width: 620px;
+            margin: 24px 0 34px;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.65;
+            letter-spacing: -1px;
+            color: var(--career-muted);
+        }
+
+        .liquid-hero-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            min-height: 62px;
+            padding: 0 14px 0 28px;
+            border-radius: 16px;
+            background: rgba(0, 132, 255, 0.8);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow:
+                inset 0 4px 4px rgba(255, 255, 255, 0.35),
+                0 22px 60px rgba(0, 132, 255, 0.24);
+            transition: transform 240ms ease, box-shadow 240ms ease, background 240ms ease;
+        }
+
+        .liquid-hero-cta:hover {
+            transform: scale(1.02);
+            background: rgba(0, 132, 255, 0.9);
+            box-shadow:
+                inset 0 4px 4px rgba(255, 255, 255, 0.38),
+                0 28px 76px rgba(0, 132, 255, 0.3);
+        }
+
+        .liquid-hero-cta-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0, 132, 255, 0.9);
+            background: white;
+            box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.45);
+        }
+
+        .liquid-hero-note {
+            margin-top: 16px;
+            font-size: 13px;
+            color: rgba(100, 116, 139, 0.9);
+        }
+
+        .liquid-orb-stage {
+            position: relative;
+            min-height: clamp(420px, 44vw, 650px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            isolation: isolate;
+        }
+
+        .liquid-orb-stage::before {
+            content: "";
+            position: absolute;
+            width: min(680px, 54vw);
+            height: min(680px, 54vw);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 132, 255, 0.14), rgba(96, 177, 255, 0.08) 44%, transparent 72%);
+            filter: blur(16px);
+        }
+
+        .liquid-orb-video {
+            position: relative;
+            z-index: 1;
+            width: min(620px, 48vw);
+            max-width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            mix-blend-mode: screen;
+            transform: scale(1.25);
+            filter: hue-rotate(-55deg) saturate(250%) brightness(1.2) contrast(1.1);
+            pointer-events: none;
+        }
+
+        .orb-insight-card {
+            position: absolute;
+            z-index: 3;
+            left: 2%;
+            bottom: 12%;
+            width: min(290px, 46vw);
+            padding: 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.48);
+            backdrop-filter: blur(42px);
+            -webkit-backdrop-filter: blur(42px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.25), 0 24px 80px rgba(15, 23, 42, 0.12);
+        }
+
+        .orb-insight-card small {
+            display: block;
+            color: rgba(100, 116, 139, 0.92);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .orb-insight-card strong {
+            display: block;
+            margin: 8px 0 12px;
+            font-family: 'Fustat', 'Inter', sans-serif;
+            font-size: 28px;
+            color: var(--career-ink);
+            letter-spacing: -0.05em;
+        }
+
+        .orb-insight-bar {
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(15, 23, 42, 0.1);
+        }
+
+        .orb-insight-bar span {
+            display: block;
+            width: 82%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #60B1FF, #0084ff);
+        }
+
+        .liquid-logo-strip {
+            position: relative;
+            z-index: 10;
+            max-width: 1600px;
+            width: 100%;
+            margin: clamp(34px, 5vw, 66px) auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 54px;
+            flex-wrap: wrap;
+        }
+
+        .liquid-logo-strip p {
+            width: 100%;
+            margin: 0 0 2px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(100, 116, 139, 0.72);
+        }
+
+        .liquid-logo {
+            width: 118px;
+            height: 34px;
+            opacity: 0.52;
+            filter: grayscale(1);
+        }
+
+        .liquid-logo text {
+            font-family: 'Fustat', 'Inter', sans-serif;
+            font-weight: 800;
+            fill: #0f172a;
+            letter-spacing: -0.04em;
+        }
+
+        @media (max-width: 980px) {
+            .header {
+                top: 16px !important;
+            }
+
+            .header .header-content {
+                width: calc(100vw - 28px);
+                gap: 10px;
+            }
+
+            .header .logo-link {
+                min-height: 52px;
+                padding: 0 16px;
+            }
+
+            .header .nav {
+                min-height: 52px;
+                overflow-x: auto;
+                justify-content: flex-start;
+                max-width: calc(100vw - 150px);
+                gap: 4px;
+                padding: 7px 8px;
+            }
+
+            .header .nav-link {
+                white-space: nowrap;
+                font-size: 13px;
+            }
+
+            .liquid-hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 18px;
+            }
+
+            .liquid-hero-copy {
+                max-width: 760px;
+                margin: 0 auto;
+            }
+
+            .hero-proof-badge,
+            .liquid-hero-cta {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .liquid-hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .liquid-orb-stage {
+                min-height: 360px;
+            }
+
+            .liquid-orb-video {
+                width: min(500px, 82vw);
+            }
+
+            .orb-insight-card {
+                left: 50%;
+                bottom: 3%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-redesign {
+                padding: 108px 18px 44px;
+            }
+
+            .header .logo-text {
+                font-size: 15px;
+            }
+
+            .header .nav {
+                max-width: calc(100vw - 124px);
+            }
+
+            .liquid-hero-title {
+                font-size: clamp(42px, 13vw, 56px);
+                letter-spacing: -1.3px;
+            }
+
+            .liquid-hero-subtitle {
+                font-size: 16px;
+                letter-spacing: -0.4px;
+            }
+
+            .liquid-logo-strip {
+                gap: 22px;
+            }
+
+            .liquid-logo {
+                width: 96px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-center,
+            .hero-bottom-bar,
+            .dot-canvas-left,
+            .dot-canvas-right {
+                animation: none !important;
+                opacity: 1 !important;
+            }
+
+            .liquid-hero-cta,
+            .header .nav-link {
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -609,188 +1125,69 @@
 
             <!-- Main Content -->
             <main class="main">
-                <!-- --- HERO SECTION — ASCII Dot Art --- -->
+                <!-- --- HERO SECTION â€” Liquid Glass CareerOS --- -->
                 <section class="hero-redesign" id="hero">
+                    <div class="liquid-hero-container">
+                        <div class="liquid-hero-copy">
+                            <div class="hero-proof-badge" aria-label="Rated 4.9 out of 5 by 2700+ learners">
+                                <span class="hero-proof-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                <span>Rated 4.9/5 by 2700+ learners</span>
+                            </div>
 
-                    <!-- Dot Map Canvas — Left -->
-                    <canvas class="dot-canvas dot-canvas-left" id="dotCanvasLeft" aria-hidden="true"></canvas>
+                            <h1 class="liquid-hero-title">
+                                Plan smarter,
+                                <span>get hired faster</span>
+                            </h1>
 
-                    <!-- Dot Map Canvas — Right -->
-                    <canvas class="dot-canvas dot-canvas-right" id="dotCanvasRight" aria-hidden="true"></canvas>
+                            <p class="liquid-hero-subtitle">
+                                CareerOS AI brings resume intelligence, skill-gap analysis, mock interviews,
+                                job matching and career guidance into one calm operating system for students and graduates.
+                            </p>
 
-                    <!-- Hero Center Content -->
-                    <div class="hero-center">
-                        <h1>
-                            <span class="hero-heading-line1">CareerOS AI</span><br>
-                            <span class="hero-heading-line2">Where Skills Meet Opportunity</span>
-                        </h1>
-                        <p class="hero-desc">
-                            AI-powered career intelligence platform combining adaptive skill assessment and intelligent
-                            job matching.
-                        </p>
-                        <a href="/jobs/" class="hero-dark-btn" id="hero-explore-jobs">
-                            Explore Jobs
-                        </a>
+                            <a href="/graduate/dashboard/" class="liquid-hero-cta" id="hero-explore-jobs">
+                                <span>Start CareerOS Now</span>
+                                <span class="liquid-hero-cta-icon" aria-hidden="true">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </a>
+
+                            <p class="liquid-hero-note">
+                                No setup friction. Upload a resume, test your skills, and see the next best move.
+                            </p>
+                        </div>
+
+                        <div class="liquid-orb-stage" aria-hidden="true">
+                            <video class="liquid-orb-video" autoplay loop muted playsinline>
+                                <source src="https://future.co/images/homepage/glassy-orb/orb-purple.webm"
+                                    type="video/webm">
+                            </video>
+
+                            <div class="orb-insight-card">
+                                <small>Career readiness</small>
+                                <strong>82% match</strong>
+                                <div class="orb-insight-bar"><span></span></div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Thin Divider -->
-                    <div class="hero-divider" aria-hidden="true"></div>
-
-                    <!-- Bottom Info Bar -->
-                    <div class="hero-bottom-bar">
-                        <div class="bottom-col bottom-col-left">
-                            <span class="bottom-text bottom-text-italic">The journey begins in stillness.</span>
-                        </div>
-                        <div class="bottom-col bottom-col-center">
-                            <span class="bottom-text">A tranquil space for personal growth, dreamwork,<br>and guided
-                                reflection. No noise. Just becoming.</span>
-                        </div>
-                        <div class="bottom-col bottom-col-right">
-                            <a href="#jobs" class="bottom-text-link">[Scroll to Explore]</a>
-                        </div>
+                    <div class="liquid-logo-strip" aria-label="Trusted by top-tier product companies">
+                        <p>Trusted by top-tier product companies</p>
+                        <svg class="liquid-logo" viewBox="0 0 160 46" role="img" aria-label="Google">
+                            <text x="8" y="31" font-size="27">Google</text>
+                        </svg>
+                        <svg class="liquid-logo" viewBox="0 0 160 46" role="img" aria-label="Meta">
+                            <text x="20" y="31" font-size="28">Meta</text>
+                        </svg>
+                        <svg class="liquid-logo" viewBox="0 0 160 46" role="img" aria-label="Netflix">
+                            <text x="6" y="31" font-size="27">Netflix</text>
+                        </svg>
+                        <svg class="liquid-logo" viewBox="0 0 160 46" role="img" aria-label="Amazon">
+                            <text x="4" y="31" font-size="27">Amazon</text>
+                        </svg>
+                        <svg class="liquid-logo" viewBox="0 0 180 46" role="img" aria-label="Microsoft">
+                            <text x="4" y="31" font-size="26">Microsoft</text>
+                        </svg>
                     </div>
-
-                    <!-- Dot Map Generator Script — Halftone Hands -->
-                    <script>
-                        (function () {
-                            function drawHalftoneHand(canvasId, side) {
-                                var c = document.getElementById(canvasId);
-                                if (!c) return;
-                                var w = Math.min(560, window.innerWidth * 0.44);
-                                var h = Math.min(560, window.innerHeight * 0.82);
-                                c.width = w; c.height = h;
-                                var ctx = c.getContext('2d');
-                                ctx.clearRect(0, 0, w, h);
-
-                                // 1. Create offscreen canvas for rasterization
-                                var offCanvas = document.createElement('canvas');
-                                offCanvas.width = w;
-                                offCanvas.height = h;
-                                var octx = offCanvas.getContext('2d', { willReadFrequently: true });
-
-                                // 2. Fill background black
-                                octx.fillStyle = '#000';
-                                octx.fillRect(0, 0, w, h);
-
-                                // 3. Define accurate SVG paths for hands (0-100 coordinates)
-                                var pathStr = "";
-                                if (side === 'left') {
-                                    // Left hand: reaching out, fingers splayed (Creation of Adam style)
-                                    pathStr = "M 0 40 " +
-                                        "C 15 35 30 35 40 38 " +
-                                        "C 55 42 70 48 85 55 " +
-                                        "C 90 58 88 63 83 62 " +
-                                        "C 70 58 60 53 50 48 " +
-                                        "C 60 55 75 62 80 66 " +
-                                        "C 85 69 83 74 78 72 " +
-                                        "C 65 67 55 60 48 55 " +
-                                        "C 55 62 65 68 70 72 " +
-                                        "C 75 75 73 80 68 78 " +
-                                        "C 58 73 50 66 45 61 " +
-                                        "C 50 68 55 75 60 78 " +
-                                        "C 65 82 62 86 57 83 " +
-                                        "C 50 78 40 70 35 65 " +
-                                        "C 35 75 40 85 42 90 " +
-                                        "C 43 95 38 98 33 93 " +
-                                        "C 25 85 15 75 5 70 " +
-                                        "C 2 68 0 68 0 68 Z";
-                                } else {
-                                    // Right hand: pointing index finger towards center
-                                    pathStr = "M 100 45 " +
-                                        "C 85 45 75 42 70 38 " +
-                                        "C 65 35 62 38 65 42 " +
-                                        "C 68 45 72 48 75 50 " +
-                                        "C 60 50 40 50 20 52 " +
-                                        "C 15 52 12 58 18 59 " +
-                                        "C 35 61 55 60 65 60 " +
-                                        "C 60 63 56 68 58 72 " +
-                                        "C 60 77 68 76 72 73 " +
-                                        "C 68 76 65 80 67 84 " +
-                                        "C 69 88 75 87 78 83 " +
-                                        "C 75 86 72 90 75 94 " +
-                                        "C 77 98 85 96 85 90 " +
-                                        "C 88 85 95 85 100 85 Z";
-                                }
-
-                                // 4. Draw path on offscreen canvas with heavy blur for 3D depth map
-                                octx.filter = 'blur(16px)';
-                                octx.fillStyle = '#fff';
-                                octx.beginPath();
-
-                                var commands = pathStr.split(/(?=[MCLQZ])/);
-                                commands.forEach(function (cmd) {
-                                    cmd = cmd.trim();
-                                    if (!cmd) return;
-                                    var type = cmd[0];
-                                    var args = cmd.slice(1).trim().split(/[\s,]+/).map(Number);
-                                    if (type === 'M') octx.moveTo(args[0] / 100 * w, args[1] / 100 * h);
-                                    if (type === 'L') octx.lineTo(args[0] / 100 * w, args[1] / 100 * h);
-                                    if (type === 'C') octx.bezierCurveTo(args[0] / 100 * w, args[1] / 100 * h, args[2] / 100 * w, args[3] / 100 * h, args[4] / 100 * w, args[5] / 100 * h);
-                                    if (type === 'Z') octx.closePath();
-                                });
-                                octx.fill();
-
-                                // Second pass: less blur to keep the core solid
-                                octx.filter = 'blur(6px)';
-                                octx.fill();
-
-                                // 5. Read pixel data
-                                var imgData;
-                                try {
-                                    imgData = octx.getImageData(0, 0, w, h).data;
-                                } catch (e) { return; } // Catch fallback for strict browsers if needed
-
-                                // 6. Draw halftone dots based on pixel brightness
-                                var gap = 7;
-                                var baseDotR = 2.0;
-                                var cols = Math.floor(w / gap);
-                                var rows = Math.floor(h / gap);
-
-                                for (var row = 0; row < rows; row++) {
-                                    for (var col = 0; col < cols; col++) {
-                                        var x = Math.floor(col * gap + gap / 2);
-                                        var y = Math.floor(row * gap + gap / 2);
-                                        var idx = (y * w + x) * 4;
-                                        var brightness = imgData[idx]; // r channel
-
-                                        if (brightness > 12) { // Threshold to trim outer extreme blur
-                                            var intensity = brightness / 255;
-
-                                            // Organic noise for print texture
-                                            var noise = Math.sin(x * 0.15) * Math.cos(y * 0.15) * 0.15;
-                                            intensity += noise;
-                                            intensity = Math.max(0, Math.min(1, intensity));
-
-                                            // Dots get smaller and lighter near edges
-                                            var r = baseDotR * (0.35 + intensity * 0.65);
-                                            var alpha = 0.08 + intensity * 0.38;
-
-                                            ctx.beginPath();
-                                            ctx.arc(x, y, r, 0, Math.PI * 2);
-                                            ctx.fillStyle = 'rgba(0,0,0,' + alpha.toFixed(3) + ')';
-                                            ctx.fill();
-                                        }
-                                    }
-                                }
-                            }
-
-                            function init() {
-                                drawHalftoneHand('dotCanvasLeft', 'left');
-                                drawHalftoneHand('dotCanvasRight', 'right');
-                            }
-
-                            if (document.readyState === 'loading') {
-                                document.addEventListener('DOMContentLoaded', init);
-                            } else {
-                                init();
-                            }
-                            window.addEventListener('resize', function () {
-                                drawHalftoneHand('dotCanvasLeft', 'left');
-                                drawHalftoneHand('dotCanvasRight', 'right');
-                            });
-                        })();
-                    </script>
-
                 </section>
 
                 <div class="container">
@@ -1133,7 +1530,7 @@
                                                         <div class="dm-avatar">G</div>
                                                         <div class="dm-profile-info">
                                                             <div class="dm-name">Pendyal Gaurav</div>
-                                                            <div class="dm-role">? Full Stack · Advanced</div>
+                                                            <div class="dm-role">? Full Stack Â· Advanced</div>
                                                         </div>
                                                         <div class="dm-stats">
                                                             <div class="dm-stat">
@@ -1151,7 +1548,7 @@
                                                             <div class="dr-rise">? Rising</div>
                                                         </div>
                                                     </div>
-                                                    <div class="dm-section-label">Recommended Companies · Click to view
+                                                    <div class="dm-section-label">Recommended Companies Â· Click to view
                                                         acceptance</div>
                                                     <div class="dm-companies">
                                                         <div class="dm-company-card">
@@ -1159,7 +1556,7 @@
                                                                 style="background:linear-gradient(135deg,#4285F4,#34A853);">
                                                                 G</div>
                                                             <div class="dm-co-name">Google DeepMind</div>
-                                                            <div class="dm-co-role">ML Engineer · Intern</div>
+                                                            <div class="dm-co-role">ML Engineer Â· Intern</div>
                                                             <div class="dm-match-pct" style="color:#16a34a">91%</div>
                                                             <div class="dm-match-label strong">Strong Match</div>
                                                             <div class="dm-bar-wrap">
@@ -1263,7 +1660,7 @@
                                             </svg>
                                         </div>
                                         <div class="step-content">
-                                            <h4 class="step-title">Step 1 — Create Account</h4>
+                                            <h4 class="step-title">Step 1 â€” Create Account</h4>
                                             <p class="step-description">Set up your profile in minutes. Add your basic
                                                 details, experience, and job preferences so the platform can understand
                                                 what matches you best.</p>
@@ -1286,7 +1683,7 @@
                                             </svg>
                                         </div>
                                         <div class="step-content">
-                                            <h4 class="step-title">Step 2 — Upload Your CV / Resume</h4>
+                                            <h4 class="step-title">Step 2 â€” Upload Your CV / Resume</h4>
                                             <p class="step-description">Upload your resume once. Our system parses your
                                                 skills, experience, and strengths to personalize your job feed
                                                 instantly.</p>
@@ -1309,7 +1706,7 @@
                                             </svg>
                                         </div>
                                         <div class="step-content">
-                                            <h4 class="step-title">Step 3 — Set Your Skills & Preferences</h4>
+                                            <h4 class="step-title">Step 3 â€” Set Your Skills & Preferences</h4>
                                             <p class="step-description">Select your preferred job roles, technologies,
                                                 locations, and salary expectations. Our AI uses this data to match you
                                                 with the right companies.</p>
@@ -1333,8 +1730,8 @@
                                             </svg>
                                         </div>
                                         <div class="step-content">
-                                            <h4 class="step-title">Step 4 — Get Smart Job Recommendations</h4>
-                                            <p class="step-description">We recommend jobs tailored to your profile — not
+                                            <h4 class="step-title">Step 4 â€” Get Smart Job Recommendations</h4>
+                                            <p class="step-description">We recommend jobs tailored to your profile â€” not
                                                 generic listings. Each match is ranked based on skill fit, experience,
                                                 and job alignment.</p>
                                         </div>
@@ -1355,7 +1752,7 @@
                                             </svg>
                                         </div>
                                         <div class="step-content">
-                                            <h4 class="step-title">Step 5 — Apply With One Click</h4>
+                                            <h4 class="step-title">Step 5 â€” Apply With One Click</h4>
                                             <p class="step-description">Apply directly or visit the source link
                                                 instantly. No more copying details repeatedly.</p>
                                         </div>
@@ -1578,7 +1975,7 @@
                         <span>Online</span>
                     </div>
                 </div>
-                <button class="chatbot-close" id="ai-close">×</button>
+                <button class="chatbot-close" id="ai-close">Ã—</button>
             </div>
             <div class="chatbot-content ai-chat-content" id="aiChatContainer">
                 <!-- Messages will be added here -->
