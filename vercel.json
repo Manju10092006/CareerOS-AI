@@ -4,15 +4,39 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/index.html"
+      "destination": "/client/src/pages/index.html"
     },
     {
       "source": "/dashboard",
-      "destination": "/index.html"
+      "destination": "/client/src/pages/dashboard/index.html"
+    },
+    {
+      "source": "/jobs",
+      "destination": "/client/src/jobs/jobs.html"
+    },
+    {
+      "source": "/skill-test",
+      "destination": "/client/src/pages/skill-test.html"
+    },
+    {
+      "source": "/signin",
+      "destination": "/client/src/pages/signin.html"
+    },
+    {
+      "source": "/signup",
+      "destination": "/client/src/pages/signup.html"
     },
     {
       "source": "/guidance",
       "destination": "/guidance/index.html"
+    },
+    {
+      "source": "/class-12",
+      "destination": "/class-12/index.html"
+    },
+    {
+      "source": "/graduate",
+      "destination": "/client/src/pages/dashboard/index.html"
     }
   ]
 }

@@ -1,1 +1,34 @@
 .vercel
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Node.js dependencies and logs
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploaded resumes and generated temp files
+uploads/*
+**/uploads/*
+!uploads/.gitkeep
+!**/uploads/.gitkeep
+
+# Local runtime databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Python worker cache
+__pycache__/
+*.pyc

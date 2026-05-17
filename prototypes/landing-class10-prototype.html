@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CareerOS Prototype - Landing + Class 10 Score</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #64748b;
+      --line: rgba(15, 23, 42, 0.1);
+      --blue: #2563eb;
+      --mint: #16b89e;
+      --paper: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(37,99,235,0.12), transparent 28rem),
+        radial-gradient(circle at 86% 20%, rgba(22,184,158,0.12), transparent 24rem),
+        radial-gradient(circle, rgba(100,116,139,0.22) 1px, transparent 1px),
+        #f8fafc;
+      background-size: auto, auto, 28px 28px, auto;
+    }
+    header {
+      position: sticky;
+      top: 16px;
+      z-index: 2;
+      width: min(1120px, calc(100% - 32px));
+      margin: 16px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px 12px 18px;
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      box-shadow: 0 20px 70px rgba(15,23,42,0.08);
+      backdrop-filter: blur(24px);
+    }
+    header a { color: inherit; text-decoration: none; font-weight: 800; }
+    nav { display: flex; gap: 8px; }
+    nav a { padding: 10px 14px; border-radius: 999px; color: var(--muted); }
+    nav a:hover { background: #eef4ff; color: var(--ink); }
+    .hero, .score {
+      width: min(1120px, calc(100% - 32px));
+      margin: 80px auto;
+    }
+    .hero {
+      min-height: 70vh;
+      display: grid;
+      grid-template-columns: 1fr 0.88fr;
+      align-items: center;
+      gap: 32px;
+    }
+    .eyebrow { color: var(--blue); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 900; }
+    h1 { margin: 18px 0; font-size: clamp(48px, 7vw, 96px); line-height: 0.94; letter-spacing: -0.06em; }
+    h1 span { color: var(--blue); }
+    p { color: var(--muted); font-size: 18px; line-height: 1.7; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 15px 22px;
+      font-weight: 900;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+    }
+    .btn.secondary { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+    .panel {
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.82);
+      border-radius: 36px;
+      background: rgba(255,255,255,0.78);
+      box-shadow: 0 30px 100px rgba(15,23,42,0.1);
+      backdrop-filter: blur(24px);
+    }
+    .audience { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .audience article { padding: 20px; border: 1px solid var(--line); border-radius: 22px; background: #fff; }
+    .score-card {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .ring {
+      min-height: 250px;
+      display: grid;
+      place-items: center;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at center, #fff 0 49%, transparent 50%),
+        conic-gradient(from -90deg, var(--blue) 88%, rgba(15,23,42,0.1) 0);
+      box-shadow: inset 0 0 0 14px rgba(255,255,255,0.75);
+    }
+    .ring strong { font-size: 76px; line-height: 1; }
+    .bars { display: grid; gap: 14px; }
+    .bar span { display: flex; justify-content: space-between; font-weight: 800; margin-bottom: 8px; }
+    .track { height: 10px; border-radius: 999px; background: #e2e8f0; overflow: hidden; }
+    .track b { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--mint)); }
+    @media (max-width: 820px) {
+      .hero, .score-card { grid-template-columns: 1fr; }
+      .audience { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../index.html">CareerOS AI</a>
+    <nav>
+      <a href="../guidance/">Class 10</a>
+      <a href="../class-12/">Class 12</a>
+      <a href="../graduate/">Graduate</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Prototype direction</div>
+        <h1>One career system for <span>every student stage.</span></h1>
+        <p>Class 10 students choose streams, Class 12 students plan exams and colleges, and graduates improve resumes, skills, interviews and job applications.</p>
+        <div class="actions">
+          <a class="btn" href="../guidance/">Get evaluation</a>
+          <a class="btn secondary" href="#score">View score card</a>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="audience">
+          <article><strong>Class 10</strong><p>Stream and college fit.</p></article>
+          <article><strong>Class 12</strong><p>Exam and admission planning.</p></article>
+          <article><strong>Graduate</strong><p>Placement readiness cockpit.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="score" id="score">
+      <div class="panel score-card">
+        <div class="ring"><strong>88%</strong></div>
+        <div>
+          <div class="eyebrow">Class 10 result card</div>
+          <h2>Science - MPC is an excellent fit.</h2>
+          <p>88th percentile match based on mathematics strength, science curiosity, engineering goal signals and available Hyderabad college routes.</p>
+          <div class="bars">
+            <div class="bar"><span><b>Interest fit</b><b>92%</b></span><div class="track"><b style="width:92%"></b></div></div>
+            <div class="bar"><span><b>Academic fit</b><b>89%</b></span><div class="track"><b style="width:89%"></b></div></div>
+            <div class="bar"><span><b>College availability</b><b>82%</b></span><div class="track"><b style="width:82%"></b></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

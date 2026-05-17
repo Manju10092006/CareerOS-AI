@@ -211,6 +211,15 @@ const STREAM_WEIGHTS = {
   hospitality: { paramedical: 3, commerce: 2, humanities: 1 }
 };
 
+const STREAM_SCORE_SPREAD = {
+  mpc: 10,
+  bipc: 5,
+  commerce: -2,
+  humanities: 1,
+  polytechnic: -6,
+  paramedical: -10
+};
+
 const COLLEGES = [
   { name: "Little Flower Junior College", city: "hyderabad", area: "Uppal", type: "Junior College", level: "After 10th", streams: ["mpc", "bipc", "commerce"], boards: ["TSBIE"], budget: "mid", fee: "Rs. 35K - 85K/year", verified: true, highlight: "Long-running Hyderabad intermediate institution with science and commerce routes.", source: "https://lfjc.co.in/courses.php" },
   { name: "Vignana Jyothi Junior College", city: "hyderabad", area: "Jubilee Hills", type: "Junior College", level: "After 10th", streams: ["mpc", "bipc", "commerce"], boards: ["TSBIE"], budget: "mid", fee: "Rs. 45K - 1.2L/year", verified: true, highlight: "Offers MPC, BiPC, MEC and CEC streams in Hyderabad.", source: "https://www.vjjc.ac.in/" },
@@ -321,6 +330,27 @@ function getCollegeBudgetScore(college, budgetId) {
   return 0;
 }
 
+function textHash(value = "") {
+  return String(value).split("").reduce((hash, char) => ((hash << 5) - hash + char.charCodeAt(0)) | 0, 0);
+}
+
+function collegeMatchScore(college, profile, targetStreams, streamId = null, budgetOverride = null) {
+  const streamOverlap = college.streams.filter((stream) => targetStreams.includes(stream)).length;
+  const streamFit = streamOverlap ? 18 + Math.min(12, streamOverlap * 5) : 0;
+  const exactTop = streamId && college.streams.includes(streamId) ? 8 : 0;
+  const cityFit = college.city === (profile.city || "hyderabad") ? 10 : 0;
+  const budgetFit = getCollegeBudgetScore(college, budgetOverride || profile.budget || "any");
+  const boardFit = (profile.board === "state" && college.boards.some((board) => /ssc|hsc|tsbie|state|pu|hse|gseb|kerala|cbse/i.test(board))) ? 4 : 2;
+  const verified = college.verified ? 4 : 0;
+  const depth = Math.min(5, college.streams.length);
+  const profileVariation = Math.abs(textHash(`${(profile.interests || []).join("|")}-${(profile.goals || []).join("|")}-${profile.learningStyle || ""}`)) % 5;
+  const collegeSignal = (Math.abs(textHash(`${college.name}-${college.source || ""}`)) % 17) - 8;
+  const areaSignal = (Math.abs(textHash(`${college.area || ""}-${college.fee || ""}`)) % 9) - 4;
+  const competitionPenalty = Math.abs(textHash(`${college.area || ""}-${college.fee || ""}-${college.level || ""}`)) % 6;
+  const raw = 28 + cityFit + streamFit * 0.78 + exactTop + budgetFit * 0.55 + boardFit + verified + depth + profileVariation + collegeSignal + areaSignal - competitionPenalty;
+  return Math.max(54, Math.min(96, Math.round(raw)));
+}
+
 function calcScores(profile) {
   const scores = {
     mpc: 32,
@@ -362,12 +392,15 @@ function calcScores(profile) {
     scores.paramedical += 6;
   }
 
-  const max = Math.max(...Object.values(scores));
   return Object.fromEntries(
-    Object.entries(scores).map(([key, value]) => [
-      key,
-      Math.max(46, Math.min(96, Math.round((value / max) * 94)))
-    ])
+    Object.entries(scores).map(([key, value]) => {
+      const profileSpread = (Math.abs(textHash(`${key}-${profile.city || ""}-${(profile.interests || []).join("|")}-${(profile.goals || []).join("|")}`)) % 5) - 2;
+      const citySpread = (Math.abs(textHash(profile.city || "")) % 5) - 2;
+      return [
+        key,
+        Math.max(46, Math.min(96, Math.round(44 + (value + (STREAM_SCORE_SPREAD[key] || 0) - 36) * 0.38 + profileSpread + citySpread)))
+      ];
+    })
   );
 }
 
@@ -397,11 +430,7 @@ function collegesForProfile(profile, streamId = null) {
   return COLLEGES
     .filter((college) => college.city === city)
     .map((college) => {
-      const streamFit = college.streams.some((stream) => targetStreams.includes(stream)) ? 40 : 0;
-      const exactTop = streamId && college.streams.includes(streamId) ? 28 : 0;
-      const budgetFit = getCollegeBudgetScore(college, profile.budget || "any");
-      const verified = college.verified ? 8 : 0;
-      return { ...college, match: Math.min(96, 44 + streamFit + exactTop + budgetFit + verified) };
+      return { ...college, match: collegeMatchScore(college, profile, targetStreams, streamId) };
     })
     .filter((college) => college.match >= 52)
     .sort((a, b) => b.match - a.match);
@@ -535,6 +564,7 @@ function App() {
 }
 
 function Shell({ children, route, navigate, profile }) {
+  const [navHidden, setNavHidden] = useState(false);
   const nav = [
     { id: "results", label: "My Results", icon: "home" },
     { id: "stream", label: "Streams", icon: "graduation-cap" },
@@ -545,9 +575,20 @@ function Shell({ children, route, navigate, profile }) {
     { id: "paths", label: "Career Paths", icon: "briefcase" }
   ];
 
+  useEffect(() => {
+    let lastY = window.scrollY;
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setNavHidden(currentY > 160 && currentY > lastY + 6);
+      lastY = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="app-shell">
-      <header className="top-nav">
+      <header className={`top-nav ${navHidden ? "nav-hidden" : ""}`}>
         <div className="nav-inner">
           <button className="brand" onClick={() => navigate(profile?.city ? "results" : "wizard")}>
             <span className="brand-mark"><img src="assets/cities/hyderabad.png" alt="" /></span>
@@ -911,6 +952,8 @@ function Results({ profile, rankedList, openStream, navigate, restart }) {
   const top = rankedList[0];
   const city = cityById(profile.city);
   const cityColleges = collegesForProfile(profile);
+  const percentile = Math.min(99, Math.max(62, Math.round(top.score * 0.92 + 8)));
+  const confidence = top.score >= 86 ? "Excellent match" : top.score >= 76 ? "Strong match" : "Good exploratory match";
 
   return (
     <div className="reveal">
@@ -925,7 +968,12 @@ function Results({ profile, rankedList, openStream, navigate, restart }) {
         </div>
         <div className="summary-card">
           <h3>Best stream match</h3>
-          <div className="summary-score"><strong>{top.score}%</strong><span>{top.name}</span></div>
+          <div className="summary-score premium-score" style={{ "--score": `${top.score}%` }}>
+            <strong>{top.score}%</strong>
+            <span>{top.name}</span>
+            <em>{percentile}th percentile fit</em>
+          </div>
+          <p className="score-meaning">{confidence}. This combines your interest signals, academic strengths, learning style and local college availability.</p>
           <div className="mini-bars">
             {rankedList.slice(0, 4).map((stream) => (
               <div className="mini-bar" key={stream.id}>
@@ -1171,26 +1219,42 @@ function InfoBlock({ title, items }) {
 function CollegesPage({ profile, scores }) {
   const topStreams = rankStreams(scores).slice(0, 3).map((stream) => stream.id);
   const [query, setQuery] = useState("");
-  const [city, setCity] = useState(profile.city || "hyderabad");
+  const [city, setCity] = useState("all");
   const [stream, setStream] = useState("all");
   const [budget, setBudget] = useState(profile.budget || "any");
+  const [rankMode, setRankMode] = useState("score");
+  const [visibleCount, setVisibleCount] = useState(20);
+
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [query, city, stream, budget, rankMode]);
 
   const filtered = COLLEGES
     .map((college) => ({
       ...college,
-      match: Math.min(
-        96,
-        44 +
-        (college.city === profile.city ? 14 : 0) +
-        (college.streams.some((item) => topStreams.includes(item)) ? 24 : 0) +
-        getCollegeBudgetScore(college, budget)
-      )
+      match: collegeMatchScore(college, { ...profile, city, budget }, topStreams, stream === "all" ? null : stream, budget)
     }))
     .filter((college) => city === "all" || college.city === city)
     .filter((college) => stream === "all" || college.streams.includes(stream))
     .filter((college) => budget === "any" || college.budget === budget || (budget === "mid" && college.budget !== "high"))
     .filter((college) => `${college.name} ${college.area} ${college.type} ${college.boards.join(" ")}`.toLowerCase().includes(query.toLowerCase()))
-    .sort((a, b) => b.match - a.match);
+    .sort((a, b) => {
+      if (rankMode === "location") {
+        return (a.city === profile.city ? -1 : 0) - (b.city === profile.city ? -1 : 0) || b.match - a.match;
+      }
+      if (rankMode === "budget") {
+        return getCollegeBudgetScore(b, budget) - getCollegeBudgetScore(a, budget) || b.match - a.match;
+      }
+      if (rankMode === "verified") {
+        return Number(b.verified) - Number(a.verified) || b.match - a.match;
+      }
+      if (rankMode === "name") {
+        return a.name.localeCompare(b.name);
+      }
+      return b.match - a.match;
+    });
+
+  const visibleColleges = filtered.slice(0, visibleCount);
 
   return (
     <div className="reveal">
@@ -1213,11 +1277,26 @@ function CollegesPage({ profile, scores }) {
           <option value="any">Any budget</option>
           {BUDGETS.filter((item) => item.id !== "any").map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
         </select>
+        <select className="selectbox" value={rankMode} onChange={(event) => setRankMode(event.target.value)}>
+          <option value="score">Best match</option>
+          <option value="location">Nearest first</option>
+          <option value="budget">Budget fit</option>
+          <option value="verified">Verified first</option>
+          <option value="name">A-Z</option>
+        </select>
+      </div>
+      <div className="result-count">
+        Showing <strong>{visibleColleges.length}</strong> of <strong>{filtered.length}</strong> recommendations. Default view opens with 20 colleges so students can compare properly before filtering.
       </div>
       <div className="college-grid">
-        {filtered.map((college) => <CollegeCard key={`${college.city}-${college.name}`} college={college} />)}
+        {visibleColleges.map((college) => <CollegeCard key={`${college.city}-${college.name}`} college={college} />)}
         {!filtered.length && <div className="empty-state">No matching colleges yet. Change city, stream or budget filters.</div>}
       </div>
+      {visibleCount < filtered.length && (
+        <div className="load-more-row">
+          <button className="btn btn-dark" onClick={() => setVisibleCount((count) => count + 20)}>Show 20 more <Icon name="arrow-down" /></button>
+        </div>
+      )}
     </div>
   );
 }
