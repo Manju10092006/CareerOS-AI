@@ -21,6 +21,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.2.8/index.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/client/src/styles/styles.css">
     <link rel="stylesheet" href="/client/src/styles/chatbots.css">
@@ -714,14 +716,49 @@
             min-height: 100vh;
             overflow: hidden;
             background:
-                radial-gradient(ellipse at 10% 0%, rgba(96, 177, 255, 0.28) 0%, rgba(96, 177, 255, 0.14) 28%, transparent 58%),
-                radial-gradient(ellipse at 0% 18%, rgba(49, 154, 255, 0.18) 0%, transparent 45%),
-                #ffffff;
+                radial-gradient(ellipse at 18% 18%, rgba(202, 231, 255, 0.42) 0%, rgba(239, 248, 255, 0.22) 32%, rgba(255, 255, 255, 0) 56%),
+                radial-gradient(circle at 72% 42%, rgba(0, 132, 255, 0.08) 0%, rgba(124, 198, 255, 0.045) 30%, rgba(255, 255, 255, 0) 52%),
+                radial-gradient(ellipse at 48% 100%, rgba(229, 243, 255, 0.72) 0%, rgba(255, 255, 255, 0) 46%),
+                linear-gradient(135deg, #fbfdff 0%, #f6fbff 36%, #ffffff 66%, #f8fbff 100%);
             padding: 126px 32px 52px;
             display: flex;
             flex-direction: column;
             align-items: stretch;
             justify-content: center;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.92),
+                inset 0 -150px 150px rgba(255, 255, 255, 0.9);
+        }
+
+        .career-hero-bg-video {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            filter: saturate(118%) contrast(0.94) brightness(1.08);
+            mix-blend-mode: multiply;
+            pointer-events: none;
+            transition: opacity 120ms linear;
+        }
+
+        .career-hero-blur {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1;
+            width: min(984px, 72vw);
+            height: min(527px, 48vw);
+            border-radius: 999px;
+            transform: translate(-50%, -50%);
+            background:
+                radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.78), rgba(239, 248, 255, 0.28) 42%, rgba(255, 255, 255, 0) 70%),
+                rgba(248, 251, 255, 0.62);
+            filter: blur(82px);
+            opacity: 0.92;
+            pointer-events: none;
         }
 
         .hero-redesign::before,
@@ -730,25 +767,45 @@
             position: absolute;
             pointer-events: none;
             border-radius: 999px;
-            filter: blur(72px);
-            opacity: 0.78;
-            z-index: 0;
+            filter: blur(88px);
+            opacity: 0.72;
+            z-index: 2;
+            mix-blend-mode: normal;
         }
 
         .hero-redesign::before {
-            width: 520px;
-            height: 260px;
-            top: -82px;
-            left: -110px;
-            background: rgba(96, 177, 255, 0.34);
+            width: 760px;
+            height: 520px;
+            top: -210px;
+            left: -230px;
+            background:
+                radial-gradient(circle at 28% 28%, rgba(96, 177, 255, 0.22), transparent 38%),
+                radial-gradient(circle at 68% 56%, rgba(255, 255, 255, 0.86), transparent 44%);
         }
 
         .hero-redesign::after {
-            width: 420px;
-            height: 220px;
-            top: 76px;
-            left: 130px;
-            background: rgba(49, 154, 255, 0.18);
+            width: 880px;
+            height: 620px;
+            top: 60px;
+            right: -320px;
+            left: auto;
+            background:
+                radial-gradient(circle at 48% 44%, rgba(0, 132, 255, 0.11), rgba(96, 177, 255, 0.055) 35%, rgba(255, 255, 255, 0) 68%);
+        }
+
+        .hero-redesign .liquid-hero-container::before {
+            content: "";
+            position: absolute;
+            inset: -120px -110px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.38;
+            background-image:
+                linear-gradient(rgba(15, 23, 42, 0.022) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.018) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at 50% 46%, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0) 72%);
+            -webkit-mask-image: radial-gradient(circle at 50% 46%, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0) 72%);
         }
 
         .liquid-hero-container {
@@ -761,6 +818,7 @@
             grid-template-columns: minmax(0, 0.92fr) minmax(420px, 0.88fr);
             align-items: center;
             gap: clamp(42px, 7vw, 120px);
+            padding-bottom: clamp(78px, 9vh, 118px);
         }
 
         .liquid-hero-copy {
@@ -793,17 +851,20 @@
 
         .liquid-hero-title {
             margin: 0;
-            font-family: 'Fustat', 'Inter', sans-serif;
+            font-family: 'General Sans', 'Fustat', 'Geist Sans', 'Inter', sans-serif;
             font-size: clamp(48px, 5.15vw, 75px);
             line-height: 1.05;
             letter-spacing: -2px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--career-ink);
         }
 
         .liquid-hero-title span {
             display: block;
-            color: rgba(0, 132, 255, 0.92);
+            color: transparent;
+            background-image: linear-gradient(92deg, #0084ff 0%, #1b6fff 46%, #6cbcff 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
         }
 
         .liquid-hero-subtitle {
@@ -881,8 +942,10 @@
             width: min(680px, 54vw);
             height: min(680px, 54vw);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 132, 255, 0.14), rgba(96, 177, 255, 0.08) 44%, transparent 72%);
-            filter: blur(16px);
+            background:
+                radial-gradient(circle, rgba(255, 255, 255, 0.74), rgba(216, 239, 255, 0.2) 34%, transparent 70%),
+                radial-gradient(circle, rgba(0, 132, 255, 0.09), rgba(96, 177, 255, 0.04) 44%, transparent 74%);
+            filter: blur(24px);
         }
 
         .liquid-orb-video {
@@ -895,6 +958,36 @@
             mix-blend-mode: screen;
             transform: scale(1.25);
             filter: hue-rotate(-55deg) saturate(250%) brightness(1.2) contrast(1.1);
+            pointer-events: none;
+        }
+
+        .liquid-glass {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.34);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: none;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.42), 0 18px 70px rgba(15, 23, 42, 0.08);
+        }
+
+        .liquid-glass::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.72) 0%,
+                    rgba(255, 255, 255, 0.22) 22%,
+                    rgba(255, 255, 255, 0) 44%,
+                    rgba(255, 255, 255, 0) 58%,
+                    rgba(255, 255, 255, 0.24) 80%,
+                    rgba(255, 255, 255, 0.68) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
             pointer-events: none;
         }
 
@@ -947,39 +1040,85 @@
         }
 
         .liquid-logo-strip {
-            position: relative;
+            position: absolute;
+            left: 32px;
+            right: 32px;
+            bottom: 38px;
             z-index: 10;
             max-width: 1600px;
             width: 100%;
-            margin: clamp(34px, 5vw, 66px) auto 0;
-            display: flex;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
             align-items: center;
-            justify-content: center;
-            gap: 54px;
-            flex-wrap: wrap;
+            gap: clamp(30px, 5vw, 72px);
         }
 
         .liquid-logo-strip p {
-            width: 100%;
-            margin: 0 0 2px;
-            text-align: center;
+            width: max-content;
+            margin: 0;
+            text-align: left;
             font-size: 13px;
             font-weight: 700;
-            color: rgba(100, 116, 139, 0.72);
+            line-height: 1.45;
+            color: rgba(71, 85, 105, 0.58);
         }
 
-        .liquid-logo {
-            width: 118px;
-            height: 34px;
-            opacity: 0.52;
-            filter: grayscale(1);
+        .liquid-marquee {
+            min-width: 0;
+            overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
         }
 
-        .liquid-logo text {
-            font-family: 'Fustat', 'Inter', sans-serif;
+        .liquid-marquee-track {
+            display: flex;
+            width: max-content;
+            gap: 64px;
+            animation: liquidLogoMarquee 20s linear infinite;
+        }
+
+        .liquid-marquee-set {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+
+        .liquid-marquee-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
+            font-family: 'Geist Sans', 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: rgba(15, 23, 42, 0.7);
+        }
+
+        .liquid-logo-mark {
+            width: 24px;
+            height: 24px;
+            border-radius: 9px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
             font-weight: 800;
-            fill: #0f172a;
-            letter-spacing: -0.04em;
+            color: rgba(15, 23, 42, 0.72);
+            background: rgba(255, 255, 255, 0.36);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.54), 0 10px 34px rgba(15, 23, 42, 0.08);
+        }
+
+        @keyframes liquidLogoMarquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
         }
 
         @media (max-width: 980px) {
@@ -1015,6 +1154,7 @@
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 18px;
+                padding-bottom: 104px;
             }
 
             .liquid-hero-copy {
@@ -1046,6 +1186,20 @@
                 bottom: 3%;
                 transform: translateX(-50%);
             }
+
+            .liquid-logo-strip {
+                grid-template-columns: 1fr;
+                justify-items: center;
+                left: 18px;
+                right: 18px;
+                bottom: 26px;
+                gap: 16px;
+            }
+
+            .liquid-logo-strip p {
+                width: auto;
+                text-align: center;
+            }
         }
 
         @media (max-width: 640px) {
@@ -1072,11 +1226,17 @@
             }
 
             .liquid-logo-strip {
-                gap: 22px;
+                bottom: 18px;
+                gap: 12px;
             }
 
-            .liquid-logo {
-                width: 96px;
+            .liquid-marquee-track,
+            .liquid-marquee-set {
+                gap: 34px;
+            }
+
+            .liquid-marquee-item {
+                font-size: 14px;
             }
         }
 
@@ -1087,6 +1247,14 @@
             .dot-canvas-right {
                 animation: none !important;
                 opacity: 1 !important;
+            }
+
+            .career-hero-bg-video {
+                display: none;
+            }
+
+            .liquid-marquee-track {
+                animation: none !important;
             }
 
             .liquid-hero-cta,
@@ -1113,6 +1281,7 @@
                             <a href="/jobs/" class="nav-link">Jobs</a>
                             <a href="/skill-test/" class="nav-link">Skill Test</a>
                             <a href="/class-12/" class="nav-link">Class 12</a>
+                            <a href="/undergard/" class="nav-link">Undergard</a>
                             <a href="/graduate/dashboard/" class="nav-link">Dashboard</a>
                             <a href="#features" class="nav-link">Features</a>
                             <a href="/graduate/dashboard/#view-upload-resume" class="nav-link">Resume</a>
@@ -1127,9 +1296,18 @@
             <main class="main">
                 <!-- --- HERO SECTION — Liquid Glass CareerOS --- -->
                 <section class="hero-redesign" id="hero">
+                    <video class="career-hero-bg-video" id="careerHeroBgVideo" muted playsinline preload="auto"
+                        aria-hidden="true">
+                        <source
+                            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4"
+                            type="video/mp4">
+                    </video>
+                    <div class="career-hero-blur" aria-hidden="true"></div>
+
                     <div class="liquid-hero-container">
                         <div class="liquid-hero-copy">
-                            <div class="hero-proof-badge" aria-label="Rated 4.9 out of 5 by 2700+ learners">
+                            <div class="hero-proof-badge liquid-glass"
+                                aria-label="Rated 4.9 out of 5 by 2700+ learners">
                                 <span class="hero-proof-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                                 <span>Rated 4.9/5 by 2700+ learners</span>
                             </div>
@@ -1162,7 +1340,7 @@
                                     type="video/webm">
                             </video>
 
-                            <div class="orb-insight-card">
+                            <div class="orb-insight-card liquid-glass">
                                 <small>Career readiness</small>
                                 <strong>82% match</strong>
                                 <div class="orb-insight-bar"><span></span></div>
@@ -1170,23 +1348,28 @@
                         </div>
                     </div>
 
-                    <div class="liquid-logo-strip" aria-label="Trusted by top-tier product companies">
-                        <p>Trusted by top-tier product companies</p>
-                        <svg class="liquid-logo" viewBox="0 0 160 46" role="img" aria-label="Google">
-                            <text x="8" y="31" font-size="27">Google</text>
-                        </svg>
-                        <svg class="liquid-logo" viewBox="0 0 160 46" role="img" aria-label="Meta">
-                            <text x="20" y="31" font-size="28">Meta</text>
-                        </svg>
-                        <svg class="liquid-logo" viewBox="0 0 160 46" role="img" aria-label="Netflix">
-                            <text x="6" y="31" font-size="27">Netflix</text>
-                        </svg>
-                        <svg class="liquid-logo" viewBox="0 0 160 46" role="img" aria-label="Amazon">
-                            <text x="4" y="31" font-size="27">Amazon</text>
-                        </svg>
-                        <svg class="liquid-logo" viewBox="0 0 180 46" role="img" aria-label="Microsoft">
-                            <text x="4" y="31" font-size="26">Microsoft</text>
-                        </svg>
+                    <div class="liquid-logo-strip" aria-label="Relied on by learners and hiring teams">
+                        <p>Relied on by learners<br>and hiring teams</p>
+                        <div class="liquid-marquee" aria-hidden="true">
+                            <div class="liquid-marquee-track">
+                                <div class="liquid-marquee-set">
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">V</span>Vortex</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">N</span>Nimbus</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">P</span>Prysma</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">C</span>Cirrus</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">K</span>Kynder</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">H</span>Halcyn</span>
+                                </div>
+                                <div class="liquid-marquee-set">
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">V</span>Vortex</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">N</span>Nimbus</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">P</span>Prysma</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">C</span>Cirrus</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">K</span>Kynder</span>
+                                    <span class="liquid-marquee-item"><span class="liquid-logo-mark">H</span>Halcyn</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -2017,6 +2200,56 @@
                         signupUrl: container.getAttribute('data-signup-url') || '/signup/',
                         profileUrl: container.getAttribute('data-profile-url') || '/graduate/dashboard/#view-profile'
                     });
+                }
+            }
+
+            const heroVideo = document.getElementById('careerHeroBgVideo');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (heroVideo && !reduceMotion) {
+                const maxOpacity = 0.24;
+                const fadeMs = 500;
+
+                const updateVideoOpacity = () => {
+                    if (!heroVideo.duration || !Number.isFinite(heroVideo.duration)) {
+                        heroVideo.style.opacity = String(maxOpacity);
+                        requestAnimationFrame(updateVideoOpacity);
+                        return;
+                    }
+
+                    const elapsedMs = heroVideo.currentTime * 1000;
+                    const remainingMs = Math.max(0, (heroVideo.duration - heroVideo.currentTime) * 1000);
+                    const fadeIn = Math.min(1, elapsedMs / fadeMs);
+                    const fadeOut = Math.min(1, remainingMs / fadeMs);
+                    heroVideo.style.opacity = String(maxOpacity * Math.min(fadeIn, fadeOut));
+
+                    if (!heroVideo.paused && !heroVideo.ended) {
+                        requestAnimationFrame(updateVideoOpacity);
+                    }
+                };
+
+                const playHeroVideo = () => {
+                    heroVideo.currentTime = 0;
+                    heroVideo.style.opacity = '0';
+                    const playPromise = heroVideo.play();
+                    if (playPromise && typeof playPromise.then === 'function') {
+                        playPromise.then(() => requestAnimationFrame(updateVideoOpacity)).catch(() => {
+                            heroVideo.style.opacity = '0';
+                        });
+                    } else {
+                        requestAnimationFrame(updateVideoOpacity);
+                    }
+                };
+
+                heroVideo.addEventListener('ended', () => {
+                    heroVideo.style.opacity = '0';
+                    window.setTimeout(playHeroVideo, 100);
+                });
+
+                if (heroVideo.readyState >= 1) {
+                    playHeroVideo();
+                } else {
+                    heroVideo.addEventListener('loadedmetadata', playHeroVideo, { once: true });
                 }
             }
         });
