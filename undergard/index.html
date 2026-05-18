@@ -42,10 +42,7 @@
             min-height: 100vh;
             font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             color: var(--ink);
-            background:
-                radial-gradient(circle at 12% 8%, rgba(96, 165, 250, 0.2), transparent 30%),
-                radial-gradient(circle at 88% 0%, rgba(6, 182, 212, 0.12), transparent 28%),
-                linear-gradient(180deg, #f8fbff 0%, #edf6ff 48%, #ffffff 100%);
+            background: #ffffff;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             text-rendering: geometricPrecision;
@@ -56,26 +53,15 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            opacity: 0.52;
-            background-image:
-                linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-            background-size: 54px 54px;
-            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 78%);
-            -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 78%);
+            opacity: 0;
             z-index: -2;
         }
 
         body::after {
             content: "";
             position: fixed;
-            width: 520px;
-            height: 520px;
-            right: -180px;
-            top: 230px;
             pointer-events: none;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.12), transparent 62%);
-            filter: blur(10px);
+            background: none;
             z-index: -1;
         }
 
@@ -204,6 +190,21 @@
         body.prep-focused .hero,
         body.prep-focused .metrics {
             display: none;
+        }
+
+        body.prep-focused {
+            background: #ffffff;
+        }
+
+        body.prep-focused .shell {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+        }
+
+        body.prep-focused .top-nav {
+            width: min(1180px, calc(100% - 32px));
+            margin-top: 14px;
         }
 
         .hero-card,
@@ -414,10 +415,28 @@
                 rgba(255, 255, 255, 0.72);
         }
 
+        body.prep-focused .workspace {
+            grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
+            width: 100%;
+            height: calc(100vh - 96px);
+            min-height: calc(100vh - 96px);
+            margin: 18px 0 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 0;
+            border-radius: 0;
+            background: #ffffff;
+            box-shadow: none;
+        }
+
         .company-pane {
             border-right: 1px solid var(--line);
             background: rgba(247, 251, 255, 0.72);
             min-width: 0;
+        }
+
+        body.prep-focused .company-pane {
+            background: #f8fafc;
         }
 
         .pane-head,
@@ -429,6 +448,11 @@
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(24px);
             border-bottom: 1px solid var(--line);
+        }
+
+        body.prep-focused .pane-head,
+        body.prep-focused .question-head {
+            top: 0;
         }
 
         .pane-title {
@@ -492,6 +516,12 @@
             padding: 16px;
         }
 
+        body.prep-focused .company-list {
+            max-height: calc(100vh - 224px);
+            padding: 14px 18px 28px;
+            gap: 10px;
+        }
+
         .company-card {
             width: 100%;
             text-align: left;
@@ -499,6 +529,13 @@
             padding: 16px;
             color: inherit;
             transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+        }
+
+        body.prep-focused .company-card {
+            border-radius: 18px;
+            padding: 13px 14px;
+            background: #ffffff;
+            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.045);
         }
 
         .company-card:hover {
@@ -549,6 +586,10 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             font-size: 16px;
+        }
+
+        body.prep-focused .company-name strong {
+            font-size: 14px;
         }
 
         .company-name span {
@@ -602,6 +643,13 @@
             border: 0;
             box-shadow: none;
             background: rgba(255, 255, 255, 0.52);
+        }
+
+        body.prep-focused .question-panel {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            background: #ffffff;
         }
 
         .question-head {
@@ -668,6 +716,13 @@
             display: grid;
             gap: 14px;
             padding: 20px;
+        }
+
+        body.prep-focused .question-list {
+            flex: 1;
+            min-height: 0;
+            overflow: auto;
+            padding: 16px 22px 32px;
         }
 
         .question-card {
