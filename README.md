@@ -2,6 +2,12 @@
 
 This project contains the CareerOS guidance pages and the full CareerOS AI codebase inside the same repository.
 
+## Live Deployment
+
+CareerOS AI is deployed on Vercel:
+
+https://career-os-ai.vercel.app/
+
 The current root homepage opens the original CareerOS AI landing page from:
 
 `client/src/pages/index.html`
